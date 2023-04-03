@@ -7,11 +7,6 @@ public class Persona extends Thread {
         super(nome);
         this.sesso = sesso;
         this.toilette = toilette;
-        if (sesso == 'F') {
-            this.setPriority(Thread.MAX_PRIORITY);
-        } else {
-            this.setPriority(Thread.MIN_PRIORITY);
-        }
     }
 
     public char getSesso() {
@@ -20,15 +15,13 @@ public class Persona extends Thread {
 
     @Override
     public void run() {
-        long tempoInBagno = (int) (Math.random() * 5000) + 1;
-        toilette.entra();
-        System.out.println(super.getName() + " ENTRA in bagno..." + this.getPriority());
+        long tempoInBagno = (int) (Math.random() * 3000) + 1;
+        toilette.entra(getSesso());
         try {
             Thread.sleep(tempoInBagno);
         } catch (InterruptedException e) {
         }
-        System.out.println(super.getName() + " ESCE dal bagno");
-        toilette.esce();
+        toilette.esce(getSesso());
     }
 
 }
